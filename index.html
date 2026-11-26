@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fbe3ed">
+<title>Mifta — A Little Love Story ♡</title>
+<style>
+:root{--rose:#bd6486;--pink:#f4b7cc;--deep:#78465c;--cream:#fff9fc;--line:#f1d1de}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff7fa;color:var(--deep);font-family:Georgia,serif}
+button,a,label{cursor:pointer}button{font:inherit}.hidden{display:none!important}
+.topbar{position:fixed;z-index:15;top:12px;right:12px;display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;max-width:95%}
+.topbar button,.pill{border:1px solid #efcada;background:#fffbfd;color:#98516f;border-radius:30px;padding:9px 13px;font:12px Arial;box-shadow:0 5px 16px #84425b18}
+.opening{min-height:100svh;display:grid;place-items:center;text-align:center;padding:80px 20px 45px;position:relative;overflow:hidden;background:linear-gradient(#6e344f55,#6e344f77),var(--wallpaper,linear-gradient(135deg,#f8d8e5,#fff4f8 55%,#efb9cf));background-size:cover;background-position:center}
+.opening:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#fff3 0,transparent 65%);pointer-events:none}
+.open-card{position:relative;max-width:720px;width:100%;padding:clamp(25px,6vw,55px);border:1px solid #fff9;border-radius:28px;background:#fff8f0d9;backdrop-filter:blur(10px);box-shadow:0 25px 90px #58263c30}
+.kicker{font:11px Arial;letter-spacing:4px;text-transform:uppercase;color:#a45c78}.open-card h1{font-size:clamp(42px,9vw,82px);font-weight:400;color:#9d4e70;margin:17px 0 8px}.open-card p{font:15px/1.8 Arial;color:#81556a}.big-heart{font-size:34px;color:#d8759b;display:block;margin:10px}
+.primary{background:linear-gradient(135deg,#d981a4,#b6537a);border:0;color:white;border-radius:40px;padding:14px 24px;font:13px Arial;box-shadow:0 9px 24px #b6537a35}
+.secondary{background:#fff8fb;border:1px solid #efcada;color:#9d5271;border-radius:40px;padding:12px 19px;font:13px Arial}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+main{max-width:1000px;width:92%;margin:auto}.section{padding:62px 0 15px}.section h2{text-align:center;font-weight:400;color:#a34f73;font-size:clamp(28px,5vw,39px);margin:0 0 9px}.subtitle{text-align:center;font:13px/1.7 Arial;color:#aa7d90;margin:0 auto 26px}
+.intro{font:18px/1.9;text-align:center;padding:25px 8%;background:#fff;border:1px solid var(--line);border-radius:25px;box-shadow:0 14px 38px #a34f7310}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.msg{position:relative;background:white;border:1px solid var(--line);border-radius:18px;padding:20px;min-height:100px;box-shadow:0 8px 25px #a34f730c}.msg p{margin:0;font-size:16px;line-height:1.75}.delete{position:absolute;right:8px;top:7px;border:0;border-radius:50%;background:#fff0f5;color:#a34f73;width:26px;height:26px;display:none}.editing .delete{display:block}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}.photo{padding:9px;background:white;border:1px solid var(--line);border-radius:17px;box-shadow:0 8px 25px #a34f7310;position:relative}.photo img{width:100%;height:220px;object-fit:cover;border-radius:11px;background:#fae7ef}.photo input{width:100%;border:0;text-align:center;padding:10px 4px;color:#96546e;background:transparent;font:13px Arial}
+.timeline{max-width:720px;margin:auto;display:grid;gap:14px}.moment{background:white;border:1px solid var(--line);border-radius:17px;padding:18px 22px;box-shadow:0 8px 25px #a34f730c}.moment b{color:#b75b80}.moment p{line-height:1.7;margin:8px 0 0}
+.envelope-wrap{display:grid;place-items:center;padding:15px}.envelope{border:0;background:transparent;position:relative;width:min(330px,85vw);height:210px;perspective:800px}.env-body{position:absolute;inset:35px 0 0;background:#e9a9c0;border-radius:8px;box-shadow:0 15px 30px #a34f7330}.env-flap{position:absolute;top:35px;left:0;width:0;height:0;border-left: min(165px,42vw) solid transparent;border-right:min(165px,42vw) solid transparent;border-top:115px solid #d989a8;transform-origin:top;transition:transform .8s;z-index:3}.env-letter{position:absolute;left:8%;width:84%;height:145px;top:24px;background:#fff9fc;border-radius:8px;display:grid;place-items:center;color:#ad5678;font-size:25px;transition:transform .8s;z-index:2;box-shadow:0 5px 15px #7d3e581c}.envelope.open .env-flap{transform:rotateX(180deg);z-index:1}.envelope.open .env-letter{transform:translateY(-90px)}
+footer{text-align:center;padding:60px 15px;color:#b27b91;font:12px Arial}
+.modal{display:none;position:fixed;inset:0;z-index:30;background:#472236b8;padding:18px;align-items:center;justify-content:center}.modal.show{display:flex}.letter{position:relative;max-width:590px;max-height:85vh;overflow:auto;background:#fff9fc;border:1px solid #f2c9d8;border-radius:24px;padding:30px;box-shadow:0 25px 80px #32172955}.letter h2{text-align:center;color:#b4527b;font-weight:400}.letter p{font:15px/1.95 Arial;color:#80566a}.close{position:absolute;right:13px;top:10px;border:0;background:#ffedf3;color:#a34f73;border-radius:50%;width:32px;height:32px}
+.hearts{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:20}.heart{position:absolute;bottom:-35px;color:#dc82a4;animation:rise linear forwards;opacity:.65}@keyframes rise{to{transform:translateY(-110vh) rotate(40deg);opacity:0}}
+.file{display:none}.smallnote{text-align:center;font:11px/1.6 Arial;color:#ae8495;margin-top:12px}
+body:not(.entered) main,body:not(.entered) footer{display:none}
+@media(max-width:600px){.topbar{top:8px;right:8px}.topbar button{padding:8px 10px}.photo img{height:180px}.section{padding-top:45px}}
+</style></head>
+  <style>
+/* DREAMY ROMANTIC HOMEPAGE UPGRADE */
+.opening {
+  min-height: 100vh;
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 15% 15%, rgba(255,255,255,.85), transparent 38%),
+    radial-gradient(ellipse at 85% 80%, rgba(255,182,210,.8), transparent 40%),
+    linear-gradient(135deg, #ffe4ef, #f9c5dc 45%, #fff0f5);
+}
+
+.opening::before {
+  content: "♡  ✨  🦋  🌷  ♡";
+  position: absolute;
+  top: 8%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(22px, 5vw, 36px);
+  letter-spacing: 12px;
+  opacity: .85;
+  pointer-events: none;
+  animation: dreamyFloat 4s ease-in-out infinite;
+}
+
+.opening::after {
+  content: "🌸  ♡  ✨  💗  🦋";
+  position: absolute;
+  bottom: 7%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(20px, 5vw, 32px);
+  letter-spacing: 8px;
+  opacity: .8;
+  pointer-events: none;
+}
+
+.open-card {
+  position: relative;
+  z-index: 2;
+  width: min(92%, 720px);
+  margin: auto;
+  padding: 30px 22px;
+  border: 1px solid rgba(255,255,255,.75);
+  border-radius: 30px;
+  background: rgba(255,255,255,.48);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 55px rgba(190,90,130,.18);
+}
+
+.opening h1 {
+  color: #a83f70;
+  text-shadow: 0 3px 18px rgba(255,255,255,.8);
+}
+
+.opening .big-heart {
+  filter: drop-shadow(0 5px 12px rgba(230,80,140,.3));
+}
+
+.opening .primary {
+  border-radius: 30px;
+  padding: 15px 28px;
+  box-shadow: 0 8px 22px rgba(190,70,120,.25);
+  transition: transform .25s ease;
+}
+
+.opening .primary:active {
+  transform: scale(.96);
+}
+
+@keyframes dreamyFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+</style>
+<body>
+<div class="hearts" id="hearts"></div>
+<div class="topbar">
+<button onclick="document.getElementById('wallInput').click()">🖼 Cover photo</button>
+<button onclick="document.getElementById('musicInput').click()">♫ Add music</button>
+<button id="editToggle" onclick="toggleEdit()">✎ Edit</button>
+<button onclick="saveAll()">♡ Save</button>
+</div>
+<input class="file" id="wallInput" type="file" accept="image/*">
+<input class="file" id="musicInput" type="file" accept="audio/*">
+<section class="opening" id="opening">
+<div class="open-card">
+<div class="kicker" contenteditable="false" data-key="kicker">A little world made with love</div>
+<h1 contenteditable="false" data-key="heroTitle">For Mifta <span style="color:#d8759b">♡</span></h1>
+<span class="big-heart">ღ</span>
+<p contenteditable="false" data-key="heroText">Someone made this little world just for you, Mifta.<br>A place for our sweetest memories and words from the heart.</p>
+<div class="actions"><button class="primary" onclick="enterStory()">Open your surprise ♡</button><button class="secondary" onclick="document.getElementById('wallInput').click()">Choose opening picture</button></div>
+<p class="smallnote">You can change this cover photo anytime using the top button.</p>
+</div></section>
+<main>
+<section class="section">
+<div class="intro" contenteditable="false" data-key="intro">Meri Jaan, Meri Pakhi, Meri Kul Kainaat — this little corner is a reminder that the smallest moments can become the most beautiful memories. Janan, may your days always hold reasons to smile. ♡</div>
+</section>
+<section class="section" id="messages"><h2 contenteditable="false" data-key="msgTitle">Little notes for you</h2><p class="subtitle">A few words to brighten an ordinary day.</p><div class="cards" id="messageCards"></div><div class="actions"><button class="secondary" onclick="addMessage()">＋ Add a message</button></div></section>
+<section class="section" id="photos"><h2 contenteditable="false" data-key="photoTitle">Our photo memories</h2><p class="subtitle">Add your favourite pictures and give each memory a caption.</p><div class="gallery" id="gallery"></div><div class="actions"><button class="primary" onclick="document.getElementById('galleryInput').click()">＋ Add pictures</button><input class="file" id="galleryInput" type="file" accept="image/*" multiple></div><p class="smallnote">Pictures are saved in this browser on this device.</p></section>
+<section class="section" id="timeline"><h2 contenteditable="false" data-key="timelineTitle">Our little story</h2><p class="subtitle">A timeline for moments you never want to forget.</p><div class="timeline" id="timelineList"></div><div class="actions"><button class="secondary" onclick="addMoment()">＋ Add a memory moment</button></div></section>
+<section class="section" id="letter"><h2 contenteditable="false" data-key="letterTitle">A letter, sealed with love</h2><p class="subtitle">Tap the envelope to open your little surprise.</p><div class="envelope-wrap"><button class="envelope" id="envelope" onclick="openEnvelope()" aria-label="Open love letter"><span class="env-body"></span><span class="env-letter">For my Janan ❤️</span><span class="env-flap"></span></button></div><div class="actions"><button class="primary" onclick="openLetter()">Read the secret letter ♡</button></div></section>
+<section class="section"><h2>Our song ♫</h2><p class="subtitle">Add an audio file from your device and play it here.</p><div class="actions"><button class="secondary" onclick="document.getElementById('musicInput').click()">Choose a song</button><button class="primary" id="playMusic" onclick="toggleMusic()">▶ Play / Pause</button></div><p class="smallnote" id="musicName">No song selected yet.</p><audio id="audio" loop preload="auto"src="Mahiya_mere_mahi_slowed.mp3"></audio></section>
+</main>
+<footer><div contenteditable="false" data-key="footer">Made for Mifta, with tenderness and a thousand little hearts. ♡</div><div style="font-size:25px;margin-top:12px">♡ ∞ ♡</div></footer>
+<div class="modal" id="letterModal" onclick="if(event.target===this)closeLetter()"><article class="letter"><button class="close" onclick="closeLetter()">×</button><h2>Only for my Janan ❤️</h2><div id="letterCopy" contenteditable="false" data-key="letterCopy"><p>Meri Jaan, Meri Pakhi, Meri Kul Kainaat — if I could wrap every lovely thought into one little place, it would look something like this.</p><p>Tumhari muskurahat, tumhari baatein, aur woh choti choti yaadein jo dil ke qareeb rehti hain — I hope they always remind you how special you are.</p><p>Janan, wherever life takes us, may you always find kindness, peace, laughter, and a thousand reasons to feel loved. This page is a small collection of affection, made just for you.</p><p style="text-align:right;color:#b4527b">With all my love, always ♡</p></div></article></div>
+<script>
+const DB='miftaUpgradeDB',STORE='assets';let db,photos=[],messages=[
+'Your smile makes ordinary moments feel a little more magical. ♡',
+'Meri Jaan, I hope today gives you a hundred reasons to smile.',
+'Meri Pakhi, keep shining in your own gentle way. 🌷',
+'Meri Kul Kainaat — may happiness find you in the smallest things.',
+'Janan, some memories become precious simply because they are shared.'
+],moments=[{date:'A beautiful beginning',text:'Add the date and story of a favourite memory here.'},{date:'A moment to keep',text:'Write about a little moment that still makes you smile.'}],editing=false,wallURL='',musicURL='';
+function openDB(){return new Promise((res,rej)=>{let r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE,{keyPath:'id',autoIncrement:true});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function asset(action,data){db=db||await openDB();return new Promise((res,rej)=>{let tx=db.transaction(STORE,action==='get'?'readonly':'readwrite'),s=tx.objectStore(STORE),r=action==='get'?s.getAll():action==='add'?s.add(data):s.delete(data);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+function renderMessages(){let root=document.getElementById('messageCards');root.innerHTML='';messages.forEach((v,i)=>{let d=document.createElement('div');d.className='msg';let p=document.createElement('p');p.textContent=v;p.contentEditable=editing;p.oninput=()=>messages[i]=p.innerText;let x=document.createElement('button');x.className='delete';x.textContent='×';x.onclick=()=>{messages.splice(i,1);renderMessages()};d.append(p,x);root.append(d)})}
+function renderPhotos(){let root=document.getElementById('gallery');root.innerHTML='';photos.forEach(ph=>{let d=document.createElement('div');d.className='photo';let im=document.createElement('img');im.src=URL.createObjectURL(ph.blob);let cap=document.createElement('input');cap.value=ph.caption||'A favourite memory';cap.setAttribute('aria-label','Photo caption');cap.onchange=async()=>{await asset('del',ph.id);await asset('add',{blob:ph.blob,caption:cap.value})};let x=document.createElement('button');x.className='delete';x.textContent='×';x.onclick=async()=>{await asset('del',ph.id);await loadPhotos()};d.append(im,cap,x);root.append(d)})}
+async function loadPhotos(){photos=await asset('get');renderPhotos()}
+function renderMoments(){let root=document.getElementById('timelineList');root.innerHTML='';moments.forEach((m,i)=>{let d=document.createElement('div');d.className='moment';let b=document.createElement('b');b.textContent=m.date;let p=document.createElement('p');p.textContent=m.text;p.contentEditable=editing;p.oninput=()=>moments[i].text=p.innerText;let x=document.createElement('button');x.className='delete';x.textContent='×';x.onclick=()=>{moments.splice(i,1);renderMoments()};d.append(b,p,x);root.append(d)})}
+function addMessage(){let v=prompt('Write a message for Mifta:');if(v&&v.trim()){messages.push(v.trim());renderMessages()}}
+function addMoment(){let date=prompt('Memory title or date:');if(!date)return;let text=prompt('What happened in this memory?')||'';moments.push({date,text});renderMoments()}
+function toggleEdit(){editing=!editing;document.body.classList.toggle('editing',editing);document.querySelectorAll('[data-key]').forEach(e=>e.contentEditable=editing);document.getElementById('editToggle').textContent=editing?'✓ Done editing':'✎ Edit';renderMessages();renderMoments()}
+function saveAll(){let content={messages,moments,fields:{}};document.querySelectorAll('[data-key]').forEach(e=>content.fields[e.dataset.key]=e.innerHTML);content.wall=wallURL;content.musicName=document.getElementById('musicName').textContent;localStorage.setItem('miftaUpgradeText',JSON.stringify(content));alert('Changes saved on this device ♡')}
+function restore(){try{let d=JSON.parse(localStorage.getItem('miftaUpgradeText')||'null');if(!d)return;messages=d.messages||messages;moments=d.moments||moments;document.querySelectorAll('[data-key]').forEach(e=>{if(d.fields?.[e.dataset.key])e.innerHTML=d.fields[e.dataset.key]});if(d.wall){wallURL=d.wall;document.getElementById('opening').style.setProperty('--wallpaper',`linear-gradient(#6e344f55,#6e344f77),url("${wallURL}") center/cover`)}}catch(e){}}
+function enterStory(){document.body.classList.add('entered');const a=document.getElementById('audio');a.play().catch(()=>{});document.getElementById('messages').scrollIntoView({behavior:'smooth'})}
+function openLetter(){document.getElementById('letterModal').classList.add('show')}
+function closeLetter(){document.getElementById('letterModal').classList.remove('show')}
+function openEnvelope(){document.getElementById('envelope').classList.toggle('open');setTimeout(openLetter,550)}
+document.getElementById('wallInput').onchange=e=>{let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{wallURL=reader.result;document.getElementById('opening').style.setProperty('--wallpaper',`linear-gradient(#6e344f55,#6e344f77),url("${wallURL}") center/cover`);saveAll()};reader.readAsDataURL(f)};
+document.getElementById('galleryInput').onchange=async e=>{for(let f of e.target.files){if(f.type.startsWith('image/'))await asset('add',{blob:f,caption:f.name.replace(/\.[^.]+$/,'')})}await loadPhotos();e.target.value=''};
+document.getElementById('musicInput').onchange=e=>{let f=e.target.files[0];if(!f)return;let a=document.getElementById('audio');if(musicURL)URL.revokeObjectURL(musicURL);musicURL=URL.createObjectURL(f);a.src=musicURL;document.getElementById('musicName').textContent='Selected: '+f.name;a.play().catch(()=>{});};
+function toggleMusic(){let a=document.getElementById('audio');if(!a.src){alert('Please choose an audio file first.');return}if(a.paused)a.play();else a.pause()}
+function heart(){let h=document.createElement('span');h.className='heart';h.textContent=['♡','♥','ღ','✧'][Math.floor(Math.random()*4)];h.style.left=Math.random()*100+'%';h.style.fontSize=(15+Math.random()*22)+'px';h.style.animationDuration=(7+Math.random()*7)+'s';document.getElementById('hearts').append(h);setTimeout(()=>h.remove(),15000)}
+restore();renderMessages();renderMoments();loadPhotos();setInterval(heart,850);
+</script>
+<style>
+#ms-zone {
+  background: linear-gradient(135deg,#fff0f6,#ffe0ed);
+  color:#8d315b;
+  padding:35px 15px;
+  margin:25px 0;
+  border-radius:24px;
+  text-align:center;
+  font-family:Arial,sans-serif;
+}
+#ms-zone h2 {font-size:27px;margin-bottom:10px}
+#ms-zone .ms-card {
+  background:white;
+  border-radius:18px;
+  padding:20px 12px;
+  margin:18px auto;
+  max-width:430px;
+  box-shadow:0 5px 18px #d88aaa35;
+}
+#ms-zone button {
+  background:#e85d91;
+  color:white;
+  border:0;
+  padding:12px 20px;
+  border-radius:25px;
+  font-size:15px;
+  cursor:pointer;
+  margin:8px;
+}
+#ms-zone .ms-big {font-size:55px;margin:12px}
+#ms-zone .ms-hidden {display:none}
+#ms-zone .ms-zip {
+  background:#ffd1e2;
+  padding:18px;
+  border-radius:12px;
+  margin-top:12px;
+}
+#ms-zone .ms-message {font-weight:bold;margin-top:12px}
+#ms-zone button:focus-visible {outline:3px solid #8d315b}
+</style>
+
+<section id="ms-zone">
+  <h2>💗 Mifta's Surprise Zone 💗</h2>
+  <p>Four little surprises, made with love!</p>
+
+  <div class="ms-card">
+    <h3>💌 A Secret Letter</h3>
+    <div class="ms-big">✉️</div>
+    <button onclick="msReveal('ms-letter')">Open the envelope</button>
+    <p id="ms-letter" class="ms-hidden ms-message">
+      Mifta, you make ordinary moments feel magical. You are truly special! 💕
+    </p>
+  </div>
+
+  <div class="ms-card">
+    <h3>🎈 Pop a Balloon</h3>
+    <div class="ms-big" id="ms-balloon">🎈🎈🎈</div>
+    <button onclick="msPop()">Pop a balloon!</button>
+    <p id="ms-balloon-text" class="ms-message">Let's make a wish! ✨</p>
+  </div>
+
+  <div class="ms-card">
+    <h3>🤫 A Little Secret</h3>
+    <div class="ms-zip">
+      <p id="ms-zip-text">Something special is hidden here...</p>
+      <button onclick="msZip()">Open the secret</button>
+    </div>
+  </div>
+
+  <div class="ms-card">
+    <h3>🎁 Your Special Gift</h3>
+    <div class="ms-big" id="ms-gift">🎁</div>
+    <button onclick="msGift()">Unwrap your gift</button>
+    <p id="ms-gift-text" class="ms-hidden ms-message">
+      Surprise! You deserve all the happiness in the world. ❤️
+    </p>
+  </div>
+</section>
+
+<script>
+function msReveal(id) {
+  document.getElementById(id).classList.toggle('ms-hidden');
+}
+
+let msCount = 3;
+function msPop() {
+  if(msCount > 0) {
+    msCount--;
+    document.getElementById('ms-balloon').textContent =
+      '🎈'.repeat(msCount) + '💥';
+    document.getElementById('ms-balloon-text').textContent =
+      msCount > 0 ? 'Yay! Keep going! 💕' : 'Your wish is on its way! 🌸';
+  } else {
+    document.getElementById('ms-balloon-text').textContent =
+      'All balloons popped! 💗';
+  }
+}
+
+function msZip() {
+  document.getElementById('ms-zip-text').textContent =
+    'My favourite part of every day is having you in my world. 💖';
+}
+
+function msGift() {
+  document.getElementById('ms-gift').textContent = '💝';
+  document.getElementById('ms-gift-text').classList.remove('ms-hidden');
+}
+</script>
+</body></html>
